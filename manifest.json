@@ -1,0 +1,27 @@
+{
+  "name": "Library books extension",
+  "description": "Search UK public library catalogues for book availability when a book ISBN is detected on a webpage",
+  "version": "0.1",
+  "manifest_version": 3,
+  "icons": {
+    "16": "icons/librarybooks16x16.png",
+    "32": "icons/librarybooks32x32.png",
+    "48": "icons/librarybooks48x48.png",
+    "128": "icons/librarybooks128x128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  }
+}
