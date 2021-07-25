@@ -1,6 +1,6 @@
 {
-  "name": "Library books extension",
-  "description": "Search UK public library catalogues for book availability when a book ISBN is detected on a webpage",
+  "name": "Library books",
+  "description": "Search for books in UK public libraries while browsing the Internet",
   "version": "0.1",
   "manifest_version": 3,
   "icons": {
@@ -12,6 +12,16 @@
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
   "permissions": [
     "storage",
     "activeTab",
