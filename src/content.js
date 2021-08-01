@@ -1,3 +1,5 @@
+/* global chrome */
+
 const isValidIsbn = (textInput) => {
   let sum
   let weight
@@ -36,12 +38,12 @@ const isValidIsbn = (textInput) => {
   }
 }
 
-let isbnRe = /(ISBN[-]*(1[03])*[ ]*(: ){0,1})*(([0-9Xx][- ]*){13}|([0-9Xx][- ]*){10})/g
+const isbnRe = /(ISBN[-]*(1[03])*[ ]*(: ){0,1})*(([0-9Xx][- ]*){13}|([0-9Xx][- ]*){10})/g
 
-let matches = [...new Set(document.body.innerText.match(isbnRe).map(m => m.replaceAll('ISBN', '').replace(/[^0-9X]/gi, '')))].filter(i => isValidIsbn(i))
+const matches = [...new Set(document.body.innerText.match(isbnRe).map(m => m.replaceAll('ISBN', '').replace(/[^0-9X]/gi, '')))].filter(i => isValidIsbn(i))
 
-isbns = matches.filter(i => matches.indexOf(`978${i}`) === -1)
+const isbns = matches.filter(i => matches.indexOf(`978${i}`) === -1)
 
-isbns.forEach(isbn => {  
-  chrome.runtime.sendMessage({ message: "found_isbn", "isbn": isbn })
+isbns.forEach(isbn => {
+  chrome.runtime.sendMessage({ message: 'found_isbn', isbn: isbn })
 })
