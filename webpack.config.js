@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 
 const config = {
@@ -62,6 +63,7 @@ const config = {
     ]
   },
   resolve: {
+    aliasFields: ['browser', 'browser.esm'],
     extensions: ['.js', '.jsx', '.tsx', '.ts'],
     alias: {
       'react-dom': '@hot-loader/react-dom'
@@ -73,6 +75,9 @@ const config = {
   plugins: [
     new CopyPlugin({
       patterns: [{ from: 'public', to: '.' }]
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
     })
   ]
 }
