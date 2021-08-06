@@ -40,10 +40,13 @@ const isValidIsbn = (textInput) => {
 
 const isbnRe = /(ISBN[-]*(1[03])*[ ]*(: ){0,1})*(([0-9Xx][- ]*){13}|([0-9Xx][- ]*){10})/g
 
-const matches = [...new Set(document.body.innerText.match(isbnRe).map(m => m.replaceAll('ISBN', '').replace(/[^0-9X]/gi, '')))].filter(i => isValidIsbn(i))
+const matches = document.body.innerText.match(isbnRe)
 
-const isbns = matches.filter(i => matches.indexOf(`978${i}`) === -1)
+if (matches && matches.length > 0) {
+  const uniqueMatches = [...new Set(matches.map(m => m.replaceAll('ISBN', '').replace(/[^0-9X]/gi, '')))].filter(i => isValidIsbn(i))
+  const isbns = uniqueMatches.filter(i => uniqueMatches.indexOf(`978${i}`) === -1)
 
-isbns.forEach(isbn => {
-  chrome.runtime.sendMessage({ message: 'found_isbn', isbn: isbn })
-})
+  isbns.forEach(isbn => {
+    chrome.runtime.sendMessage({ message: 'found_isbn', isbn: isbn })
+  })
+}
