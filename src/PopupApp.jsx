@@ -7,10 +7,9 @@ import '@fontsource/roboto/700.css'
 
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 
 import { DataGrid } from '@material-ui/data-grid'
 
@@ -48,39 +47,47 @@ const theme = createTheme({
 })
 
 const columns = [
-  { field: 'isbn', headerName: 'ISBN' }
-];
+  { field: 'id', headerName: 'ISBN', flex: 1, minWidth: 150 }
+]
 
 const PopupApp = () => {
   const [navIndex, setNavIndex] = React.useState(0)
   const [rows, setRows] = React.useState([])
 
-  chrome.storage.sync.get(["isbns"], function (result) {
-    var isbns = result["isbns"] ? result["isbns"] : []
-    setRows(isbns.map(t => { isbn: t }))
+  chrome.storage.sync.get(['isbns'], function (result) {
+    var storage = result['isbns'] ? result['isbns'] : []
+    var isbns = storage.map(isbn => { return { id: isbn } })
+    setRows(isbns)
   })
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Paper>
-        <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+      <Container>
+        <Typography variant="h6" gutterBottom component="h2">
+          Book browsing history
+        </Typography>
 
-        <Button variant='text'>Close</Button>
-        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-          <BottomNavigation
-            showLabels
-            value={navIndex}
-            onChange={(event, value) => {
-              setNavIndex(value)
-            }}
-          >
-            <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-            <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
-          </BottomNavigation>
-        </Paper>
-      </Paper>
+        <div style={{ height: 400, width: '100%' }}>
+          <div style={{ display: 'flex', height: '100%' }}>
+            <div style={{ flexGrow: 1 }}>
+              <DataGrid density='comfortable' rows={rows} columns={columns} autoPageSize autoHeight />
+            </div>
+          </div>
+        </div>
+
+        <BottomNavigation
+          showLabels
+          value={navIndex}
+          onChange={(event, value) => {
+            setNavIndex(value)
+          }}
+        >
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+        </BottomNavigation>
+      </Container>
     </ThemeProvider>
   )
 }
