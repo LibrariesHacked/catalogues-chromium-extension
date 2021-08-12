@@ -53,12 +53,18 @@ const columns = [
 
 const PopupApp = () => {
   const [navIndex, setNavIndex] = React.useState(0)
+  const [rows, setRows] = React.useState([])
+
+  chrome.storage.sync.get(["isbns"], function (result) {
+    var isbns = result["isbns"] ? result["isbns"] : []
+    setRows(isbns.map(t => { isbn: t }))
+  })
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper>
-        <DataGrid rows={[]} columns={columns} pageSize={5} checkboxSelection />
+        <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
 
         <Button variant='text'>Close</Button>
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

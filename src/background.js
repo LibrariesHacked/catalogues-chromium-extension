@@ -4,14 +4,12 @@
  * Receive a message 
  */
 const receiveISBN = (isbn) => {
-  chrome.storage.sync.get(["titleAvailability"], function (result) {
-    var titleAvailability = result["titleAvailability"] ? result["titleAvailability"] : {}
-    if (availabilityRequest && availabilityRequest.length > 0) {
-      titleAvailability[isbn] = availabilityRequest.map(r => r.availability)
-      chrome.storage.sync.set({ currentAvailability: titleAvailability }, function () {
-        console.log("Saved a new availability item")
-      })
-    }
+  chrome.storage.sync.get(["isbns"], function (result) {
+    var isbns = result["isbns"] ? result["isbns"] : []
+    isbns.push(isbn)
+    chrome.storage.sync.set({ isbns: isbns }, function () {
+      console.log("Saved a new isbn")
+    })
   })
 }
 
