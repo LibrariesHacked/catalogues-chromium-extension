@@ -26,12 +26,6 @@ The solution can be build using webpack. See the [webpack.config.js](webpack.con
 npm run build
 ```
 
-## Versioning
-
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/LibrariesHacked/catalogues-chromium-extension/contributors).
-
 ## Authors
 
   - **Dave Rowe** - *Initial code* - [DaveBathnes](https://github.com/DaveBathnes)
@@ -40,4 +34,4 @@ See also the list of [contributors](https://github.com/LibrariesHacked/catalogue
 
 ## License
 
-This project is licensed under the [MIT](LICENSE.md) License - see [LICENSE](LICENSE.md) for details
+This project is licensed under the [MIT](LICENSE.md) License
