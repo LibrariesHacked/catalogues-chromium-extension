@@ -25,7 +25,7 @@
     "@fontsource/roboto": "^4.5.7",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.3",
-    "catalogues-library": "^1.2.0"
+    "catalogues-library": "^1.2.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
