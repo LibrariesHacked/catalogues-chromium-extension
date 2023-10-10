@@ -1,4 +1,4 @@
-# Library catalogues Chromium extension
+# Chromium extension for library catalogues
 
 A Chromium extension to search UK library catalogues
 
